@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://bitsms.org/sitemap.xml
