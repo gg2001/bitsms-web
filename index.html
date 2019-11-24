@@ -23,7 +23,7 @@
         <meta property="og:image" content="https://bitsms.org/image.jpg">
         <meta property="og:image:alt" content="bitsms.org logo">
         <meta property="og:description" content="Send Bitcoin offline via SMS">
-        <meta name="twitter:card" content="bitsms.org">
+        <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@btc2sms">
         <meta name="twitter:creator" content="@GauthamGE">
         <meta name="twitter:url" content="https://bitsms.org/">
@@ -209,7 +209,31 @@
                 margin-top: -25px;
             }
         </style>
-        <script></script>
+        <script>
+            window.onload=function(){
+                const splitbutton = document.getElementById('splitbutton');
+                const clearbutton = document.getElementById('clearbutton');
+                const transaction = document.getElementById('transaction');
+
+                splitbutton.addEventListener('click', splitTransaction);
+
+                function splitTransaction() {
+                    if (transaction.value == "") {
+                        console.log("empty");
+                    } else {
+                        console.log(transaction.value);
+                    }
+                    /*
+                  if (button.value === 'Start machine') {
+                    button.value = 'Stop machine';
+                    paragraph.textContent = 'The machine has started!';
+                  } else {
+                    button.value = 'Start machine';
+                    paragraph.textContent = 'The machine is stopped.';
+                  } */
+                }
+            }
+        </script>
     </head>
     <body>
         <div class="header">
@@ -245,14 +269,14 @@
             </div>
             <div class="side">
                 <form>
-                    <input class="bordercolor clearbutton" type="button" value="Clear All">
+                    <input id="clearbutton" class="bordercolor clearbutton" type="button" value="Clear All">
                 </form>
             </div>
         </div>
-        <textarea class="bordercolor smstext" name="Text1" cols="40" rows="5"></textarea>
+        <textarea id="transaction" class="bordercolor smstext" name="Text1" cols="40" rows="5"></textarea>
         <div class="splitbuttondiv">
             <form>
-                <input class="bordercolor splitbutton" type="button" value="Split">
+                <input id="splitbutton" class="bordercolor splitbutton" type="button" value="Split">
             </form>
         </div>
         <hr class="footerhr">
