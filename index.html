@@ -165,6 +165,37 @@
             .bordercolor {
             	border-color: #000000;
             }
+
+            .smsmax {
+                height: 20px;
+                width: 30px;
+                margin-right: 10px;
+            }
+
+            .clearbutton {
+                height: 25px;
+            }
+
+            .smstext {
+                width: 100%;
+                height: 100px;
+                margin-left: -3px;
+            }
+
+            .splitbuttondiv {
+                display: flex;
+                justify-content: right;
+                float: right;
+            }
+
+            .splitbutton {
+                height: 25px;
+                width: 100px;
+            }
+
+            .footerhr {
+                margin-top: 40px;
+            }
         </style>
         <script>
         </script>
@@ -196,12 +227,12 @@
         <h3>Create a signed raw transaction</h3>
         <h3>Split an SMS message</h3>
         <p>If you can't send SMS messages larger than 160 characters, use the tool below to split the transaction into separate parts. The order in which you send each part doesn't matter.</p>
-        <p>Maximum characters: <input class="bordercolor" type="text" id="name" name="name" placeholder="160" required minlength="2" maxlength="4" size="10" style="height:20px; width:30px;margin-right: 10px;"><button type="button" style="height:25px;border-color: #000000;">Clear All</button></p>
-        <textarea name="Text1" cols="40" rows="5" style="width:100%;height:100px;border-color: #000000; margin-left: -3px;"></textarea>
-        <div style="display: flex; justify-content: right; float:right;">
-            <button type="button" style="height:25px;border-color: #000000; width:100px;">Split</button>
+        <p>Maximum characters: <input class="bordercolor smsmax" type="text" id="name" name="name" placeholder="160" required minlength="2" maxlength="4" size="10"><button class="bordercolor clearbutton" type="button">Clear All</button></p>
+        <textarea class="bordercolor smstext" name="Text1" cols="40" rows="5"></textarea>
+        <div class="splitbuttondiv">
+            <button class="bordercolor splitbutton" type="button">Split</button>
         </div>
-        <hr style="margin-top:40px">
+        <hr class="footerhr">
         <p>Gautham Elango</p>
     </body>
 </html>
