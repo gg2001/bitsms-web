@@ -208,8 +208,16 @@
             .splitmargin {
                 margin-top: -25px;
             }
+
+            .footer {
+                line-height: 1.6;
+                font-size: 16px;
+                overflow:auto;
+                font-family: Arial;
+            }
         </style>
         <script>
+            /*
             window.onload=function(){
                 const splitbutton = document.getElementById('splitbutton');
                 const clearbutton = document.getElementById('clearbutton');
@@ -219,20 +227,41 @@
 
                 function splitTransaction() {
                     if (transaction.value == "") {
-                        console.log("empty");
+                        document.getElementById('p1').innerHTML = "Please enter a raw transaction";
+                        document.getElementById('hp1').innerHTML = "";
                     } else {
-                        console.log(transaction.value);
+                        rawtxHashZero = transaction.value.replace(/[0]+/g, "");
+                        rawtxHash = rawtxHashZero.slice(0,6)
+                        console.log(rawtxHash);
+                        txLength = transaction.value.length;
+                        txPages = Math.ceil(txLength/148);
+
+                        if (txLength <= 148) {
+                            //document.getElementById('p1').innerHTML = 
+                            var printString = "&lt;" + rawtxHash + "&gt;" + transaction.value + "&lt;" + "0f" + "&gt;";
+                            document.getElementById('p1').innerHTML = printString;
+                            document.getElementById('hp1').innerHTML = "1";
+                        } else {
+
+                        }
+                        console.log(txLength);
+                        console.log(txPages);
+
+                        const pastebutton = document.getElementById('splitbutton')
+
+                        function paste() {
+                          var pasteText = document.querySelector("#output");
+                          pasteText.focus();
+
+
+                          document.execCommand("paste");
+                          console.log(pasteText.textContent);
+                        }
+
+                        document.querySelector("#paste").addEventListener("click", paste);
                     }
-                    /*
-                  if (button.value === 'Start machine') {
-                    button.value = 'Stop machine';
-                    paragraph.textContent = 'The machine has started!';
-                  } else {
-                    button.value = 'Start machine';
-                    paragraph.textContent = 'The machine is stopped.';
-                  } */
                 }
-            }
+            } */
         </script>
     </head>
     <body>
@@ -248,17 +277,25 @@
                 </h3>
             </li>
         </ul>
-        <p>Text a signed raw transaction to this number. Created for <a href="#">--- Wallet</a>.</p>
+        <p>Text a signed raw transaction to this number. Created for <a href="https://orum.gcubed.io/">Orum Wallet</a>.</p>
         <h3>How it works</h3>
-        <p>Bitsms is not a wallet. Instead, it is an SMS to Bitcoin relay where you sign a transaction in your wallet and text it to this number. Most wallets like Electrum, Bitcoin Core and Armory allow you to sign raw transactions offline. Sending Bitcoin through Bitsms is as secure as sending Bitcoin over the Internet.</p>
+        <p>Bitsms is not a wallet. Instead, it is an SMS to Bitcoin relay where you sign a transaction in your wallet and text it to this number. Most wallets like Electrum, Bitcoin Core and Armory allow you to sign raw transactions offline. Bitsms is open source, and available on Github.</p>
         <h3>Example</h3>
         <div class="messagediv">
             <p class="message from-me">0100000001f3f6a909f8521adb57d898d2985834e632374e770fd9e2b98656f1bf1fdfd427010000006b48304502203a776322ebf8eb8b58cc6ced4f2574f4c73aa664edce0b0022690f2f6f47c521022100b82353305988cb0ebd443089a173ceec93fe4dbfe98d74419ecc84a6a698e31d012103c5c1bc61f60ce3d6223a63cedbece03b12ef9f0068f2f3c4a7e7f06c523c3664ffffffff0260e31600000000001976a914977ae6e32349b99b72196cb62b5ef37329ed81b488ac063d1000000000001976a914f76bc4190f3d8e2315e5c11c59cfc8be9df747e388ac00000000</p>
             <p class="message from-them">b138360800cdc72248c3ca8dfd06de85913d1aac7f41b4fa54eb1f5a4a379081</p>
         </div>
-        <p class="belowmessagediv">Once the transaction is broadcasted, Bitsms replies with the transaction ID.</p>
+        <p class="belowmessagediv">Once the transaction is sent successfuly, Bitsms replies with the transaction ID. If the same transaction has already been sent or contains errors, Bitsms will not reply.</p>
         <h3>Create a signed raw transaction</h3>
+        <p>Here are instructions on signing a raw transaction for various wallets:</p>
+        <ul>
+            <li><a href="https://bitcoin.org/en/developer-examples#simple-raw-transaction">Bitcoin Core (CLI)</a></li>
+            <li><a href="https://electrum.readthedocs.io/en/latest/coldstorage.html">Electrum</a></li>
+            <li><a href="https://www.bitcoinarmory.com/tutorials/armory-advanced-features/offline-wallets/offline-wallet/">Armory</a></li>
+        </ul>
         <h3>Split an SMS message</h3>
+        <p>This is an upcoming feature to enable sending on devices that restrict sending SMS messages larger than 160 characters.</p>
+        <!--
         <p>If you can't send SMS messages larger than 160 characters, use the tool below to split the transaction into separate parts. The order in which you send each part doesn't matter.</p>
         <div class="splitmargin">
             <div class="side">
@@ -279,7 +316,12 @@
                 <input id="splitbutton" class="bordercolor splitbutton" type="button" value="Split">
             </form>
         </div>
-        <hr class="footerhr">
-        <p>Gautham Elango</p>
+        <h4 id="hp1" class="footerhr"></h4>
+        <p id="p1" lass="footerhr"></p> -->
+        <hr>
+<pre class="footer">Version 1.0 (<a href="https://github.com/gg2001/bitsms-web">GitHub</a>) (<a href="https://github.com/gg2001/bitsms-web/releases/download/v1.0/bitsms.zip">zip</a>)
+PGP: <a href="https://bitsms.org/0B215CD9.asc">BC12 5B85 F201 B0E4 0A4E E2DD AB55 3169 0B21 5CD9</a> (<a href="https://github.com/gg2001/bitsms-web/releases/download/v1.0/bitsms.zip.sig">sig</a>)
+By <a href="https://gcubed.io/">Gautham Elango</a>
+Donate: <a href="bitcoin:bc1qx4fxms2t8xcke9p2w2xkx9vw4qpt5sj7cxpx58">bc1qx4fxms2t8xcke9p2w2xkx9vw4qpt5sj7cxpx58</a></pre>
     </body>
 </html>
