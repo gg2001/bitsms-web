@@ -209,56 +209,97 @@
             .footer {
                 line-height: 1.6;
                 font-size: 16px;
-                overflow:auto;
+                overflow: auto;
                 font-family: Arial;
+            }
+
+            .overflow {
+                overflow: auto;
             }
         </style>
         <script>
-            /*
+        
             window.onload=function(){
                 const splitbutton = document.getElementById('splitbutton');
-                const clearbutton = document.getElementById('clearbutton');
+                //const clearbutton = document.getElementById('clearbutton');
                 const transaction = document.getElementById('transaction');
-
+                var printString;
                 splitbutton.addEventListener('click', splitTransaction);
+                const footerdiv = document.getElementById('footerdiv');
+
+                function insertAfter(el, referenceNode) {
+                    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+                }
+
 
                 function splitTransaction() {
+                    document.getElementById('p1').innerHTML = "";
+                    document.getElementById('hp1').innerHTML = "";
+
+                    for (let i = 0; i < 97; i++) {
+                        if (document.getElementById('p' + (i + 2).toString()) !== null) {
+                            document.getElementById('p' + (i + 2).toString()).remove();
+                            document.getElementById('hp' + (i + 2).toString()).remove();
+                        }
+                    }
                     if (transaction.value == "") {
                         document.getElementById('p1').innerHTML = "Please enter a raw transaction";
                         document.getElementById('hp1').innerHTML = "";
                     } else {
-                        rawtxHashZero = transaction.value.replace(/[0]+/g, "");
+                        rawtxHashZero = transaction.value.trim().replace(/[0]+/g, "");
                         rawtxHash = rawtxHashZero.slice(0,6)
                         console.log(rawtxHash);
-                        txLength = transaction.value.length;
+                        txLength = transaction.value.trim().length;
                         txPages = Math.ceil(txLength/148);
 
-                        if (txLength <= 148) {
-                            //document.getElementById('p1').innerHTML = 
-                            var printString = "&lt;" + rawtxHash + "&gt;" + transaction.value + "&lt;" + "0f" + "&gt;";
+                        if (txPages == 1) {
+                            printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'') + "&lt;" + "0f" + "&gt;";
                             document.getElementById('p1').innerHTML = printString;
                             document.getElementById('hp1').innerHTML = "1";
                         } else {
-
+                            for (let i = 0; i < txPages; i++) {
+                                if (i == 0) {
+                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice(0, 148) + "&lt;" + "1" + "&gt;";
+                                    document.getElementById('p1').innerHTML = printString;
+                                    document.getElementById('hp1').innerHTML = "1";
+                                } else if ((txPages - i) == 1) {
+                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice((147 * i), (147 + (147 * i))) + "&lt;" + "f" + (i + 1).toString() + "&gt;";
+                                    var newHead = document.createElement('h4');
+                                    var newPara = document.createElement('p');
+                                    newHead.setAttribute('id', 'hp' + (i + 1).toString());
+                                    newPara.setAttribute('id', 'p' + (i + 1).toString());
+                                    newPara.setAttribute('class', 'overflow');
+                                    newPara.innerHTML = printString;
+                                    newHead.innerHTML = (i + 1).toString();
+                                    var refPara = document.getElementById('p' + i.toString());
+                                    //var refHead = document.getElementById('hp' + (i + 1).toString());
+                                    insertAfter(newHead, refPara);
+                                    insertAfter(newPara, newHead);
+                                    //document.getElementById('p' + (i + 1).toString()).innerHTML = printString;
+                                    document.getElementById('hp' + (i + 1).toString()).innerHTML = (i + 1).toString();
+                                } 
+                                else {
+                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice((148 * i), (148 + (148 * i))) + "&lt;" + (i + 1).toString() + "&gt;";
+                                    // document.getElementById('p' + (i).toString()).parentNode.insertBefore(document.createElement('p' + (i + 1).toString()), document.getElementById('p1').nextSibling);
+                                    var newHead = document.createElement('h4');
+                                    var newPara = document.createElement('p');
+                                    newHead.setAttribute('id', 'hp' + (i + 1).toString());
+                                    newPara.setAttribute('id', 'p' + (i + 1).toString());
+                                    newPara.setAttribute('class', 'overflow');
+                                    newPara.innerHTML = printString;
+                                    newHead.innerHTML = (i + 1).toString();
+                                    var refPara = document.getElementById('p' + i.toString());
+                                    //var refHead = document.getElementById('hp' + (i + 1).toString());
+                                    insertAfter(newHead, refPara);
+                                    insertAfter(newPara, newHead);
+                                    //document.getElementById('p' + (i + 1).toString()).innerHTML = printString;
+                                    document.getElementById('hp' + (i + 1).toString()).innerHTML = (i + 1).toString();
+                                }
+                            }
                         }
-                        console.log(txLength);
-                        console.log(txPages);
-
-                        const pastebutton = document.getElementById('splitbutton')
-
-                        function paste() {
-                          var pasteText = document.querySelector("#output");
-                          pasteText.focus();
-
-
-                          document.execCommand("paste");
-                          console.log(pasteText.textContent);
-                        }
-
-                        document.querySelector("#paste").addEventListener("click", paste);
                     }
                 }
-            } */
+            } 
         </script>
     </head>
     <body>
@@ -291,10 +332,8 @@
             <li><a href="https://www.bitcoinarmory.com/tutorials/armory-advanced-features/offline-wallets/offline-wallet/">Armory</a></li>
         </ul>
         <h3>Split an SMS message</h3>
-        <p>This is an upcoming feature to enable sending on devices that restrict sending SMS messages larger than 160 characters.</p>
-        <!--
         <p>If you can't send SMS messages larger than 160 characters, use the tool below to split the transaction into separate parts. The order in which you send each part doesn't matter.</p>
-        <div class="splitmargin">
+        <!--<div class="splitmargin">
             <div class="side">
                 <p class="smsmaxspace">Maximum characters: </p>
             </div>
@@ -306,20 +345,21 @@
                     <input id="clearbutton" class="bordercolor clearbutton" type="button" value="Clear All">
                 </form>
             </div>
-        </div>
+        </div>-->
         <textarea id="transaction" class="bordercolor smstext" name="Text1" cols="40" rows="5"></textarea>
         <div class="splitbuttondiv">
             <form>
                 <input id="splitbutton" class="bordercolor splitbutton" type="button" value="Split">
             </form>
         </div>
-        <h4 id="hp1" class="footerhr"></h4>
-        <p id="p1" lass="footerhr"></p> -->
+        <h4 id="hp1"></h4>
+        <p id="p1" class="overflow"></p>
+        <div id="footerdiv">
         <hr>
 <pre class="footer">Version 1.0 (<a href="https://github.com/gg2001/bitsms-web">GitHub</a>) (<a href="https://github.com/gg2001/bitsms-web/releases/download/v1.0/bitsms.zip">zip</a>)
 PGP: <a href="https://bitsms.org/0B215CD9.asc">BC12 5B85 F201 B0E4 0A4E E2DD AB55 3169 0B21 5CD9</a> (<a href="https://github.com/gg2001/bitsms-web/releases/download/v1.0/bitsms.zip.sig">sig</a>)
 Twitter: <a href="https://twitter.com/btc2sms">@btc2sms</a>
 By <a href="https://gcubed.io/">Gautham Elango</a>
-Donate: <a href="bitcoin:bc1qx4fxms2t8xcke9p2w2xkx9vw4qpt5sj7cxpx58">bc1qx4fxms2t8xcke9p2w2xkx9vw4qpt5sj7cxpx58</a></pre>
+Donate: <a href="bitcoin:bc1qx4fxms2t8xcke9p2w2xkx9vw4qpt5sj7cxpx58">bc1qx4fxms2t8xcke9p2w2xkx9vw4qpt5sj7cxpx58</a></pre></div>
     </body>
 </html>
