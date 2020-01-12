@@ -300,7 +300,7 @@
                         rawtxHash = rawtxHashZero.slice(0,6)
                         console.log(rawtxHash);
                         txLength = transaction.value.trim().length;
-                        txPages = Math.ceil(txLength/148);
+                        txPages = Math.ceil(txLength/147);
 
                         if (txPages == 1) {
                             printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'') + "&lt;" + "f1" + "&gt;";
@@ -316,7 +316,7 @@
                         } else {
                             for (let i = 0; i < txPages; i++) {
                                 if (i == 0) {
-                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice(0, 148) + "&lt;" + "1" + "&gt;";
+                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice(0, 147) + "&lt;" + "1" + "&gt;";
                                     document.getElementById('p1').innerHTML = printString;
                                     document.getElementById('hp1').innerHTML = "1" + " -&nbsp;";
                                      var newCopy = document.createElement('button');
@@ -327,7 +327,7 @@
                             var newHead1 = document.getElementById('hp1');
                             insertAfter(newCopy, newHead1)
                                 } else if ((txPages - i) == 1) {
-                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice((148 * i), (148 + (148 * i))) + "&lt;" + "f" + (i + 1).toString() + "&gt;";
+                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice((147 * i), (147 + (147 * i))) + "&lt;" + "f" + (i + 1).toString() + "&gt;";
                                     var newHead = document.createElement('h4');
                                     var newPara = document.createElement('p');
                                     newHead.setAttribute('id', 'hp' + (i + 1).toString());
@@ -349,7 +349,7 @@
                                     document.getElementById('hp' + (i + 1).toString()).innerHTML = (i + 1).toString() + " -&nbsp;";
                                 } 
                                 else {
-                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice((148 * i), (148 + (148 * i))) + "&lt;" + (i + 1).toString() + "&gt;";
+                                    printString = "&lt;" + rawtxHash + "&gt;" + transaction.value.trim().replace(/\s/g,'').slice((147 * i), (147 + (147 * i))) + "&lt;" + (i + 1).toString() + "&gt;";
                                     // document.getElementById('p' + (i).toString()).parentNode.insertBefore(document.createElement('p' + (i + 1).toString()), document.getElementById('p1').nextSibling);
                                     var newHead = document.createElement('h4');
                                     var newPara = document.createElement('p');
@@ -430,13 +430,13 @@
         </div>
         <h4 id="hp1"></h4>
         <p id="p1" class="overflow"></p>
-        <noscript><p>Please enable JavaScript to split transactions.</p><hr></noscript>
+        <noscript><p>Please enable JavaScript to split transactions</p><hr></noscript>
         <h3 id="ibheader">Split example</h3>
         <div class="messagediv">
-            <p class="message-split from-me">&lt;11f3f6&gt;0100000001f3f6a909f8521adb57d898d2985834e632374e770fd9e2b98656f1bf1fdfd427010000006b48304502203a776322ebf8eb8b58cc6ced4f2574f4c73aa664edce0b0022690f&lt;1&gt;</p>
-            <p class="message-split from-me">&lt;11f3f6&gt;2f6f47c521022100b82353305988cb0ebd443089a173ceec93fe4dbfe98d74419ecc84a6a698e31d012103c5c1bc61f60ce3d6223a63cedbece03b12ef9f0068f2f3c4a7e7f06c523c36&lt;2&gt;</p>
-            <p class="message-split from-me">&lt;11f3f6&gt;64ffffffff0260e31600000000001976a914977ae6e32349b99b72196cb62b5ef37329ed81b488ac063d1000000000001976a914f76bc4190f3d8e2315e5c11c59cfc8be9df747e388ac&lt;3&gt;</p>
-            <p class="message-split from-me">&lt;11f3f6&gt;00000000&lt;f4&gt;</p>
+            <p class="message-split from-me">&lt;11f3f6&gt;0100000001f3f6a909f8521adb57d898d2985834e632374e770fd9e2b98656f1bf1fdfd427010000006b48304502203a776322ebf8eb8b58cc6ced4f2574f4c73aa664edce0b0022690&lt;1&gt;</p>
+            <p class="message-split from-me">&lt;11f3f6&gt;f2f6f47c521022100b82353305988cb0ebd443089a173ceec93fe4dbfe98d74419ecc84a6a698e31d012103c5c1bc61f60ce3d6223a63cedbece03b12ef9f0068f2f3c4a7e7f06c523c&lt;2&gt;</p>
+            <p class="message-split from-me">&lt;11f3f6&gt;3664ffffffff0260e31600000000001976a914977ae6e32349b99b72196cb62b5ef37329ed81b488ac063d1000000000001976a914f76bc4190f3d8e2315e5c11c59cfc8be9df747e38&lt;3&gt;</p>
+            <p class="message-split from-me">&lt;11f3f6&gt;8ac00000000&lt;f4&gt;</p>
             <p class="message from-them">b138360800cdc72248c3ca8dfd06de85913d1aac7f41b4fa54eb1f5a4a379081</p>
         </div>
         <p class="belowmessagediv">The split messages don't need to be sent in order.</p>
